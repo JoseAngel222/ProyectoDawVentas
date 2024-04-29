@@ -6,35 +6,39 @@ import java.util.Scanner;
 
 public class VentaPresencial extends Venta{
 
-    List<Vendedor> vendedores;
+    Vendedor vendedor;
 
-    public VentaPresencial(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, List<Cliente> clientes, List<Vendedor> vendedores) {
-        super(sc, fechaVenta, libroVendidos, clientes);
-        this.vendedores = vendedores;
+    public VentaPresencial(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, Cliente cliente, Vendedor vendedor) {
+        super(sc, fechaVenta, libroVendidos, cliente);
+        this.vendedor = vendedor;
     }
 
-    public void mostrarVendedor() {
-        for (Vendedor vendedor: vendedores){
-            System.out.println("El nombre del vendedor es " + vendedor.getNombre());
-        }
+    public Vendedor getVendedor() {
+        return vendedor;
     }
-    public void setVendedores(List<Vendedor> vendedores) {
-        this.vendedores = vendedores;
-        System.out.println("El vendedor ha sido introducido con exito");
+    public void mostrarNombreVendedor() {
+        System.out.println("El nombre del vendedor es " + vendedor.getNombre());
+    }
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+        System.out.println("El vendedor ha sido introducido con éxito");
     }
 
     public void GenerarFactura(Venta venta){
 
         System.out.println("======= Factura =======");
         System.out.println("Fecha de venta: " + getFechaVenta());
-        System.out.println("Nombre del cliente: " + getClientes().get(0).getNombre());
-        System.out.println("Nombre del vendedor: " + vendedores.get(0).getNombre());
+        System.out.println("Nombre del cliente: " + cliente.getNombre());
+        System.out.println("Nombre del vendedor: " + vendedor.getNombre());
         System.out.println("Libros vendidos con su precio:");
         for (Libro libro : getLibrosVendidos()) {
             System.out.println("- " + libro.getTitulo() + " | Precio: $" + libro.getPrecio());
         }
-        System.out.println("Total a pagar: $" + calcularTotal()) - DescuentoDeClienteMayorista(venta);
+        double totalAPagar = venta.calcularTotal() - VentaMayorista.DescuentoDeClienteMayorista(venta);
+        System.out.println("Total a pagar: $" + totalAPagar);
         System.out.println("=======================");
     }
 
 }
+
+
