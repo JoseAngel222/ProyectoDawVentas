@@ -14,13 +14,13 @@ public class Venta {
     LocalDate fechaVenta;
     LocalDate FechaEntrega;
     List<Libro> libroVendidos;
-    List<Cliente> clientes;
+    Cliente cliente;
 
-    public Venta(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, List<Cliente> clientes) {
+    public Venta(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, Cliente cliente) {
         this.sc = sc;
         this.fechaVenta = fechaVenta;
         this.libroVendidos = libroVendidos;
-        this.clientes = clientes;
+        this.cliente = cliente;
     }
 
     public Venta() {
@@ -71,9 +71,7 @@ public class Venta {
         this.libroVendidos = libroVendidos;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
     public LocalDate getFechaVenta() {
         return fechaVenta;
@@ -83,18 +81,14 @@ public class Venta {
         return libroVendidos;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
+    public Cliente getCliente() { return cliente;}
 
     public LocalDate getFechaEntrega() {return FechaEntrega;}
 
     public void setFechaEntrega(LocalDate fechaEntrega) {FechaEntrega = fechaEntrega;}
 
     public void mostrarCliente() {
-        for (Cliente clientes : clientes) {
-            System.out.println(clientes.toString());
-        }
+        System.out.println(cliente.toString());
     }
     public void mostrarLibrosVendidos(){
         for (Libro libroVendidos : this.libroVendidos){
@@ -119,15 +113,9 @@ public class Venta {
     }
 
     public void buscarClienteYMostrarDireccion(String nombreCliente) {
-        boolean encontrado = false;
-        for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equalsIgnoreCase(nombreCliente)) {
-                encontrado = true;
-                System.out.println("Dirección del cliente " + nombreCliente + ": " + cliente.getDireccion());
-                break;
-            }
-        }
-        if (!encontrado) {
+        if (cliente != null && cliente.getNombre().equalsIgnoreCase(nombreCliente)) {
+            System.out.println("Dirección del cliente " + nombreCliente + ": " + cliente.getDireccion());
+        } else {
             System.out.println("Cliente no encontrado");
         }
     }
