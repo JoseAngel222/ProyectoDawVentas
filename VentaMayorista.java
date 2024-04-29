@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class VentaMayorista extends Venta{
 
-    public VentaMayorista(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, List<Cliente> clientes) {
-        super(sc, fechaVenta, libroVendidos, clientes);
+    public VentaMayorista(Scanner sc, LocalDate fechaVenta, List<Libro> libroVendidos, Cliente cliente) {
+        super(sc, fechaVenta, libroVendidos, cliente);
     }
     public double obtenerDescuentoMayorista() {
         return VentaMayorista.DescuentoDeClienteMayorista(this);
@@ -26,3 +26,4 @@ public class VentaMayorista extends Venta{
         return venta.getDescuento();
     }
 }
+
