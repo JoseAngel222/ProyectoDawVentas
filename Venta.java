@@ -1,4 +1,4 @@
-package ProyectoDawVentas;
+package TestProyecto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -119,59 +119,6 @@ public class Venta {
             System.out.println("Cliente no encontrado");
         }
     }
-    public static void GuardarVenta(Scanner sc, ArrayList<Venta> listaVentas, HashMap<Integer, Cliente> mapaClientes, HashMap<Venta, Integer> mapaVentas) {
-        Venta venta = new Venta();
-        System.out.println("Ingrese el ID del cliente a buscar: ");
-        int idCliente = sc.nextInt();
-        sc.nextLine();
-        Cliente cliente = mapaClientes.get(idCliente);
-        if (cliente != null) {
-            int idVenta;
-            Random random = new Random();
-            do {
-                idVenta = random.nextInt(10000);
-            } while (mapaVentas.containsValue(idVenta));
-            venta.setIdVenta(idVenta);
-            mapaVentas.put(venta, idCliente);
-
-            System.out.println("Venta guardada con idCliente de: " + cliente.getIdCliente() +
-                    "\nIdVenta de: " + venta.getIdVenta());
-
-            System.out.println("Ingrese el precio de la venta : ");
-            int precioVenta = sc.nextInt();
-            sc.nextLine();
-            venta.setPrecio(precioVenta);
-            listaVentas.add(venta);
-
-            System.out.println("""
-                    Indique el tipo de Cliente:\s
-                    1)Regular
-                    2)Mayorista
-                    3)Online
-                    4)Internacional
-                    5)VIP""");
-            cliente.setTipoCliente(sc.nextInt());
-            Cliente.GuardarPuntosFidelidad(cliente,precioVenta);//Guarda puntos en funcion del precio total de la venta sin descuento
-            Descuento(cliente,venta);
-            System.out.println("El precio de la compra despues de descuentos pasa de "+precioVenta+" a "+venta.getPrecio());
-
-            System.out.println("""
-                    ¿Desea utilizar sus punto de Fidelidad?
-                    1)SI
-                    2)NO""");
-            if ((sc.nextInt() == 1)&&(cliente.getPuntosFidelidad()>=200)) {
-                Cliente.CanjearPuntosFidelidad(cliente, venta);
-                System.out.println("El nuevo precio de la venta es: " + venta.getPrecio());
-            } else {
-                System.out.println("Punto de fidelidad no canjeados");
-            }
-
-            CalcularEnvio(sc,venta,cliente);
-        } else {
-            System.out.println("Cliente no encontrado");
-        }
-
-    }
     public static void Descuento(Cliente cliente,Venta venta) {
         switch (cliente.getTipoCliente()){
             case 1 ->{
@@ -181,10 +128,6 @@ public class Venta {
                 ClienteMayorista.VerificarBonificacionMayorista(venta);
             }
             case 3 ->{
-                //lo que sea
-            }
-            case 4 ->{}
-            case 5 ->{
                 ClienteVIP.VerificarBonificacionVIP(venta);
             }
         }
@@ -256,6 +199,10 @@ public class Venta {
                 cliente.setTipoCliente(4);
             }
         }
+    }
+
+
+}
     }
 
 
