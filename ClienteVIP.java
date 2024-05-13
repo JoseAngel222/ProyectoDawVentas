@@ -1,4 +1,4 @@
-package TestProyecto;
+package ProyectoDawVentas;
 import java.time.LocalDate;
 
 public class ClienteVIP extends Cliente{

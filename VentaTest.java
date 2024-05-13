@@ -1,4 +1,4 @@
-package TestProyecto;
+package ProyectoDawVentas;
 
 import org.junit.jupiter.api.Test;
 import TestProyecto.*;
